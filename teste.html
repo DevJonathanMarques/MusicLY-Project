@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>ECMAScript</title>
+
+	<meta charset="utf-8">
+
+</head>
+<body>
+
+	<h1 id="titulo">Titulo</h1>
+	<h6 id="artista">Artista</h6>
+	<p id="letra">Letra</p>
+
+	<script type="text/javascript">
+
+		function getMusica(artista, musica) {
+			return fetch(`https://api.vagalume.com.br/search.php?art=${artista}&mus=${musica}`).then(response => response.json())
+		}
+		
+		getMusica('Linkin Park', 'Numb').then(dados => {
+
+			let titulo = dados['mus'][0]['name']
+			document.getElementById('titulo').innerHTML = titulo
+
+			let artista = dados['art']['name']
+			document.getElementById('artista').innerHTML = artista
+
+			let letra = dados['mus'][0]['text']
+			document.getElementById('letra').innerHTML = letra
+
+		})
+
+	</script>
+
+</body>
+</html>
