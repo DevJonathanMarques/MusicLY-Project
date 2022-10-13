@@ -63,14 +63,6 @@
 		#header1 {
 			display: none;
 		}
-		
-		footer div {
-			margin-bottom: 20px;
-		}
-
-		div.col-md-5 {
-			margin-bottom: 10px;
-		}
 
 		header a.nav-link {
 			border: 3px solid #2EFE64;
@@ -81,6 +73,14 @@
 			display: none;
 		}
 
+		div.col-md-5 {
+			margin-bottom: 10px;
+		}
+		
+		footer div {
+			margin-bottom: 20px;
+		}
+
 	}
 
 /* Small devices (landscape phones, 576px and up) */
@@ -88,14 +88,6 @@
 
 		#header1 {
 			display: none;
-		}
-		
-		footer div {
-			margin-bottom: 20px;
-		}
-
-		div.col-md-5 {
-			margin-bottom: 10px;
 		}
 
 		header li.nav-item {
@@ -105,6 +97,14 @@
 
 		.divisor {
 			display: none;
+		}
+
+		div.col-md-5 {
+			margin-bottom: 10px;
+		}
+		
+		footer div {
+			margin-bottom: 20px;
 		}
 
 	}

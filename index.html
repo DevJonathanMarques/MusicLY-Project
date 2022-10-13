@@ -2,27 +2,35 @@
 <html>
 <head>
 
-	<meta charset="utf-8">
-
+	<!-- TITULO -->
 	<title>MusicLY</title>
 
+	<!-- META TAGS -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- ICON DA PAG -->
 	<link rel="icon" href="IMAGENS/icon.png">
 
+	<!-- CSS PAGE -->
 	<link rel="stylesheet" type="text/css" href="estilo.css">
 
-	<!-- CSS only -->
+	<!-- BOOTSTRAP CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-	<!-- JavaScript Bundle with Popper -->
+	<!-- BOOTSTRAP JAVASCRIPT -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
-	<!-- Font Awesome - Icons -->
+	<!-- FONT-AWESOME - ICONS -->
 	<script src="https://kit.fontawesome.com/5d9c2ca835.js" crossorigin="anonymous"></script>
+
+	<!-- JAVASCRIPT DA PAG -->
+	<script type="text/javascript" src="app.js"></script>
 
 </head>
 <body id="container">
 
-	<!-- HEADER 1-->
+	<!-- HEADER 1 - MEDIUM, LARGE E EXTRA LARGE -->
 	<header id="header1" class="container-fluid">
 		<div class="row">
 			<div class="col-4">
@@ -48,7 +56,7 @@
 		</div>
 	</header>
 
-	<!-- HEADER 2-->
+	<!-- HEADER 2 - SMALL E EXTRA SMALL -->
 	<header id="header2" class="container-fluid">
 		<nav class="nav navbar navbar-expand-md">
 			<div class="row">
@@ -80,7 +88,10 @@
 		</nav>
 	</header>
 
+	<!-- CONTEÚDO DA PÁGINA -->
 	<section class="container p-3">
+
+		<!-- ÁREA DE PESQUISA -->
 		<h1 class="text-white">Procure a letra da sua música favorita!</h1>
 		<div class="p-2 row">
 			<div class="col-md-5"><input class="form-control" id="artista" placeholder="Digite aqui o artista"></div>
@@ -88,6 +99,7 @@
 			<div class="col-md-2"><button class="btn" onclick="pesquisar()">Pesquisar</button></div>
 		</div>
 
+		<!-- ÁREA DO CONTEÚDO -->
 		<div id="conteudo" class="d-none mt-2 p-4">
 			<h1 id="titulo"></h1>
 			<h4 id="artista"></h4>
@@ -97,8 +109,10 @@
 				<div id="titulo_traducao" class="col-6"> <h5>Tradução</h5> <p id="traducao"></p> </div>
 			</div>
 		</div>
+
 	</section>
 
+	<!-- FOOTER -->
 	<footer class="container-fluid">
 		<div class="row d-flex justify-content-around">
 			<div class="col-md-3 col-6">
@@ -134,64 +148,6 @@
 			</div>
 		</div>
 	</footer>
-
-	<script type="text/javascript">
-		
-		function pesquisar() {
-			let artista = document.getElementById('artista').value
-			let musica = document.getElementById('musica').value
-
-			//API from https://api.vagalume.com.br/docs/letras/
-			let url = 'https://api.vagalume.com.br/search.php?art='+ artista + '&mus='+ musica;
-			url = url.replace(' ', '%20')
-			
-			xmlHttp = new XMLHttpRequest();
-			xmlHttp.open('GET', url);
-
-			xmlHttp.onreadystatechange = () => {
-				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					let dadosJSONtext = xmlHttp.responseText;
-
-					let dadosJSONobj = JSON.parse(dadosJSONtext);
-
-					if (dadosJSONobj['type'] == 'notfound' || dadosJSONobj['type'] == "song_notfound") {
-						alert('Música não encontrada')
-					}
-
-					console.log(dadosJSONobj)
-
-					document.getElementById('conteudo').className = 'mt-2 p-4'
-
-					document.getElementById('titulo').innerHTML = dadosJSONobj['mus'][0]['name']
-					document.getElementById('cantor').innerHTML = dadosJSONobj['art']['name']
-
-					if (dadosJSONobj['mus'][0]['translate']) {
-						var string1 = dadosJSONobj['mus'][0]['translate'][0]['text']
-						var string2 = dadosJSONobj['mus'][0]['text']
-					} else {
-						var string2 = dadosJSONobj['mus'][0]['text']
-					}
-
-					function nl2br (str, replaceMode, isXhtml) {
-					  var breakTag = (isXhtml) ? '<br />' : '<br>';
-					  var replaceStr = (replaceMode) ? '$1'+ breakTag : '$1'+ breakTag +'$2';
-					  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, replaceStr);
-					}
-
-					if (dadosJSONobj['mus'][0]['translate']) {
-						document.getElementById('traducao').innerHTML = nl2br(string1)
-						document.getElementById('letra').innerHTML = nl2br(string2)
-					} else {
-						document.getElementById('letra').innerHTML = nl2br(string2)
-						document.getElementById('titulo_traducao').className = 'd-none'
-					}
-				}
-			}
-
-			xmlHttp.send();
-		}
-
-	</script>
 
 </body>
 </html>
