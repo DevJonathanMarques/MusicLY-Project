@@ -32,6 +32,7 @@ function pesquisar() {
 		if (dados['mus'][0]['translate']) {
 			let traducao = dados['mus'][0]['translate'][0]['text']
 			document.getElementById('traducao').innerHTML = nl2br(traducao)
+			document.getElementById('titulo_traducao').className = 'col-6'
 		} else {
 			document.getElementById('titulo_traducao').className = 'd-none'
 		}
